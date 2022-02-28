@@ -1,7 +1,5 @@
 locals {
-  is_postgres_instance_exist = length(var.db_name) > 0 ? true : false
-
-
+  prefix = replace(lower(var.prefix), "/[^a-zA-Z0-9]/", "")
   keylist = [
     for val in var.ingress_white_list_ip_ranges :
     format("controller.service.loadBalancerSourceRanges[%d]", index(var.ingress_white_list_ip_ranges, val))

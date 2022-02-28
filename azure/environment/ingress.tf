@@ -6,6 +6,7 @@ resource "helm_release" "ingress" {
   repository       = "https://kubernetes.github.io/ingress-nginx"
   chart            = "ingress-nginx"
   version          = var.ingress_controller_helm_chart_version
+
   dynamic "set" {
     for_each = local.ingress_settings
     content {

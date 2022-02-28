@@ -18,7 +18,7 @@ variable "rg_name" {
 variable "db_username" {
   type        = string
   description = "Username for the master DB user. Note: Do NOT use 'user' as the value"
-  default     = "psqladmin"
+  default     = "postgres"
 }
 
 variable "db_password" {
@@ -30,7 +30,7 @@ variable "db_password" {
 variable "postgresql_version" {
   type        = string
   description = "postgresql DB version"
-  default     = "13"
+  default     = "11"
 }
 
 variable "db_firewall_start_ip_address" {
