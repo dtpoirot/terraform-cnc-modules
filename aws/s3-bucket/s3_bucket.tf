@@ -13,7 +13,7 @@ locals {
 # https://registry.terraform.io/modules/terraform-aws-modules/s3-bucket/aws/2.7.0
 module "s3_bucket" {
   source        = "terraform-aws-modules/s3-bucket/aws"
-  version       = "2.7.0"
+  version       = "2.14.1"
   create_bucket = var.create_bucket
   bucket        = "${local.namespace}-uploads-bucket"
   force_destroy = true
