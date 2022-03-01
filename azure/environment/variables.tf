@@ -30,7 +30,7 @@ variable "db_password" {
 variable "postgresql_version" {
   type        = string
   description = "postgresql DB version"
-  default     = "11"
+  default     = "13"
 }
 
 variable "db_firewall_start_ip_address" {

@@ -11,7 +11,7 @@ resource "azurerm_storage_account" "storage_account" {
 resource "azurerm_storage_account_network_rules" "default" {
   count                      = var.scanfarm_enabled ? 1 : 0
   storage_account_id         = azurerm_storage_account.storage_account[0].id
-  default_action             = "Deny"
+  default_action             = "Allow"
   ip_rules                   = var.storage_firewall_ip_rules
   virtual_network_subnet_ids = var.vnet_subnetid
   bypass                     = ["AzureServices"]

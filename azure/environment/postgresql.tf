@@ -22,6 +22,12 @@ resource "azurerm_postgresql_flexible_server_configuration" "default" {
   value     = "off"
 }
 
+resource "azurerm_postgresql_flexible_server_configuration" "extensions" {
+  name      = "azure.extensions"
+  server_id = azurerm_postgresql_flexible_server.master.id
+  value     = "UUID-OSSP"
+}
+
 resource "azurerm_postgresql_flexible_server_firewall_rule" "default" {
   name             = "${local.prefix}-postgres-fw-rule"
   server_id        = azurerm_postgresql_flexible_server.master.id
