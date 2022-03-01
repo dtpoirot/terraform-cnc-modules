@@ -14,6 +14,7 @@ resource "azurerm_postgresql_flexible_server" "master" {
   storage_mb             = var.db_storage
   sku_name               = var.sku_name
   tags                   = var.tags
+  zone                   =  "1"
 }
 
 resource "azurerm_postgresql_flexible_server_configuration" "default" {
