@@ -64,10 +64,10 @@ variable "default_node_pool_vm_size" {
   description = "default nodepool vm size"
 }
 
-variable "node_count" {
+variable "default_pool_node_count" {
   type        = number
-  default     = 1
-  description = "number of nodes in nodepool"
+  default     = 2
+  description = "number of nodes in default nodepool"
 }
 
 variable "availability_zones" {
@@ -97,13 +97,13 @@ variable "os_disk_size_gb" {
 variable "default_node_pool_max_node_count" {
   type        = number
   default     = 5
-  description = "default nodepool maximum nodes"
+  description = "Max number of nodes in a default node pool"
 }
 
 variable "default_node_pool_min_node_count" {
   type        = number
-  default     = 1
-  description = "minimum nodes in default nodepool"
+  default     = 2
+  description = "Min number of nodes in a default node pool"
 }
 
 variable "identity_type" {
@@ -135,13 +135,13 @@ variable "jobfarm_pool_name" {
 variable "jobfarmpool_vm_size" {
   type        = string
   default     = "Standard_D8as_v4"
-  description = "jobform nodepool vm size"
+  description = "jobfarm nodepool vm size"
 }
 
 variable "node_taints" {
   type        = list(string)
   default     = ["NodeType=ScannerNode:NoSchedule"]
-  description = "jobform nodepool node taints"
+  description = "jobfarm nodepool node taints"
 }
 
 variable "jobfarmpool_os_disk_type" {
@@ -168,13 +168,19 @@ variable "node_labels" {
 variable "jobfarmpool_min_count" {
   type        = number
   default     = 1
-  description = "manimum nodes in jabfarm nodepool"
+  description = "manimum nodes in jobfarm nodepool"
 }
 
 variable "jobfarmpool_max_count" {
   type        = number
   default     = 5
-  description = "maximum nodes in jabfarm nodepool"
+  description = "maximum nodes in jobfarm nodepool"
+}
+
+variable "jobfarmpool_node_count" {
+  type        = number
+  default     = 1
+  description = "No of nodes in jobfarm nodepool"
 }
 
 variable "scanfarm_enabled" {

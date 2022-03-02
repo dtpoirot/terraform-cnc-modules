@@ -22,7 +22,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
     name               = var.default_node_pool_name
     vm_size            = var.default_node_pool_vm_size
     type               = "VirtualMachineScaleSets"
-    node_count         = var.node_count
+    node_count         = var.default_pool_node_count
     availability_zones = var.availability_zones
     max_pods           = var.max_pods_count
 
@@ -52,12 +52,12 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
 }
 
-resource "azurerm_kubernetes_cluster_node_pool" "jabformpool" {
+resource "azurerm_kubernetes_cluster_node_pool" "jobfarmpool" {
   count                 = var.scanfarm_enabled ? 1 : 0
   name                  = var.jobfarm_pool_name
   kubernetes_cluster_id = azurerm_kubernetes_cluster.aks.id
   vm_size               = var.jobfarmpool_vm_size
-  node_count            = 1
+  node_count            = var.jobfarmpool_node_count
   os_type               = "Linux"
   os_disk_type          = var.jobfarmpool_os_disk_type
   mode                  = "User"

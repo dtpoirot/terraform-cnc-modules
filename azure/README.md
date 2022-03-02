@@ -66,8 +66,10 @@ Name | Description | Type | Default
 `jobfarmpool_os_disk_type` | additional nodepool os disk type | string | `Ephemeral`
 `enable_auto_scaling` |  to enable the auto scaling | bool | `true`
 `node_labels` | labels to be set to the nodes | map(string) | `{ "app" : "jobfarm","pool-type" : "small"}`
-`jobfarmpool_min_count` | minium number of nodes in jobform node pool | number | `1`
+`jobfarmpool_min_count` | minium number of nodes in jobfarm node pool | number | `1`
 `jobfarmpool_max_count` | maximum number of nodes in jobfarm node pool | number | `5`
+`jobfarmpool_node_count` | "No of nodes in jobfarm nodepool" | number | `1`
+`default_pool_node_count` | "No of nodes in jobfarm nodepool" | number | `2`
 
 ## global resouce Outputs
 
@@ -90,6 +92,7 @@ Name | Description | Type | Default
 `rg_name` | resouce group name , you will get it from global output .|string | `""`
 `db_username` | Username for the master DB user. Note: Do NOT use 'user' as the value" | string | `psqladmin`
 `db_password` | Password for the master DB user; If empty, then random password will be set by default. Note: This will be stored in the state file | string | `""`
+`zone` | the zone in which postgres server has to be deployed | string |`"1"`
 `postgresql_version` | version of the postgresql database server | string | `"13"`
 `vnet_subnetid` | vnet_subnetid to attached with storage account , you will get it from global output | list("string") | `[]`
 `storage_firewall_ip_rules` | the whitelisted ip's for storage account access | list(string) | `[]`
@@ -104,13 +107,13 @@ Name | Description | Type | Default
 
 Name | Description
 ---- | -----------
-`fqdn` | fully qualified domain name of the postgres server
- `postgres_server_id` | id the postgresql server .
- `db_login` | username of the master database .
- `db_password` | password of the master database .
- `bucket` | azure storage bucket name 
+`db_instance_address` | fully qualified domain name of the postgres server
+ `db_instance_name` | id the postgresql server .
+ `db_instance_username` | username of the master database .
+ `db_master_password` | password of the master database .
+ `storage_bucket_name` | azure storage bucket name 
  `storage_access_key` | access key which is used to access to storage bucket .
- `storageaccount_name` | name of azure storage account .
+ `storage_account_name` | name of azure storage account .
 
  while destroying , please destroy the environment resources first and then destroy the global resources .
 
