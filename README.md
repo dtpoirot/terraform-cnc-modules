@@ -9,5 +9,7 @@ Synopsys has created these example terraform scripts to provide customers a temp
 Currently, the supported cloud providers are:
 - [AWS](./aws)
 - [GCP](./gcp)
+- [AZURE](./azure)
+
 
 In addition, we provide a [pure-kubernetes reference implementation](./kubernetes).
