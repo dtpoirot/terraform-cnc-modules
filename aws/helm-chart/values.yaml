@@ -1,0 +1,43 @@
+publicImageRegistry: ""
+imageRegistry: ""
+imageVersion: "main.latest"
+imagePullPolicy: "Always"
+
+cnc-common-infra:
+  version: ""
+
+cim:
+  cimweb:
+    version: ""
+    updateLicenseJob:
+      enabled: true
+      force: true
+  cimtools:
+    version: ""
+  cimdatabase:
+    version: ""
+  cimdownloads:
+    version: ""
+
+  ingress:
+    enabled: true
+
+cnc-processor-loader:
+  version: ""
+
+cnc-scan-service:
+  version: ""
+  migrateJob:
+    version: ""
+
+cnc-storage-service:
+  version: ""
+  migrateJob: 
+    version: ""
+  storageType: "s3"
+
+scanfarm:
+  enabled: true
+
+postgres:
+  sslmode: "disable"
