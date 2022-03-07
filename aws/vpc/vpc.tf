@@ -32,7 +32,7 @@ module "vpc" {
   public_subnets       = data.template_file.public_cidrs.*.rendered
   private_subnets      = data.template_file.private_cidrs.*.rendered
   enable_dns_hostnames = true
-  enable_nat_gateway   = true
+  enable_nat_gateway   = false
   single_nat_gateway   = true
   tags                 = var.tags
 }
@@ -64,7 +64,7 @@ data "aws_subnet" "default" {
 }
 
 # Get the nat gateway public ip of the given vpc
-data "aws_nat_gateway" "default" {
-  count  = local.is_vpc_exist ? 1 : 0
-  vpc_id = var.vpc_id
-}
+# data "aws_nat_gateway" "default" {
+#   count  = local.is_vpc_exist ? 1 : 0
+#   vpc_id = var.vpc_id
+# }

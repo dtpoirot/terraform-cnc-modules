@@ -13,7 +13,7 @@ module "eks" {
   cluster_name                         = "${var.prefix}-cluster"
   cluster_version                      = var.kubernetes_version
   vpc_id                               = var.vpc_id
-  subnets                              = var.vpc_public_subnets
+  subnets                              = var.vpc_private_subnets
   cluster_endpoint_private_access      = true
   cluster_endpoint_public_access       = true
   cluster_endpoint_public_access_cidrs = var.cluster_endpoint_public_access_cidrs
@@ -67,11 +67,11 @@ locals {
       taints  = var.jobfarm_node_pool_taints
   } } : {}
 
-  nat_ip_list = [
-    for val in var.vpc_nat_public_ips :
-    format("%s/32", val)
-  ]
-  ip_white_list = concat(var.cluster_endpoint_public_access_cidrs, local.nat_ip_list)
+  # nat_ip_list = [
+  #   for val in var.vpc_nat_public_ips :
+  #   format("%s/32", val)
+  # ]
+  ip_white_list = var.cluster_endpoint_public_access_cidrs
   keylist = [
     for val in local.ip_white_list :
     format("controller.service.loadBalancerSourceRanges[%d]", index(local.ip_white_list, val))

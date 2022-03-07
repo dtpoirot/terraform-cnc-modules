@@ -30,9 +30,9 @@ variable "vpc_private_subnets" {
   type = list(any)
 }
 
-variable "vpc_nat_public_ips" {
-  type = list(any)
-}
+# variable "vpc_nat_public_ips" {
+#   type = list(any)
+# }
 
 ## Cluster configuration
 variable "create_eks" {

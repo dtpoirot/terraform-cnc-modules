@@ -19,9 +19,9 @@ module "eks_cluster" {
   scanfarm_enabled                      = var.scanfarm_enabled
   prefix                                = var.prefix
   vpc_id                                = module.vpc.vpc_id
-  vpc_public_subnets                    = module.vpc.vpc_public_subnets
+  vpc_public_subnets                    = module.vpc.vpc_private_subnets
   vpc_private_subnets                   = module.vpc.vpc_private_subnets
-  vpc_nat_public_ips                    = module.vpc.vpc_nat_public_ips
+  #vpc_nat_public_ips                    = module.vpc.vpc_nat_public_ips
   cluster_name                          = var.cluster_name
   map_users                             = var.map_users
   kubernetes_version                    = var.kubernetes_version

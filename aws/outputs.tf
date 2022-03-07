@@ -15,9 +15,9 @@ output "vpc_private_subnets" {
   value = module.vpc.vpc_private_subnets
 }
 
-output "vpc_nat_public_ips" {
-  value = module.vpc.vpc_nat_public_ips
-}
+# output "vpc_nat_public_ips" {
+#   value = module.vpc.vpc_nat_public_ips
+# }
 
 ## Cluster outputs
 output "cluster_name" {
