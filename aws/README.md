@@ -151,3 +151,18 @@ $ terraform plan
 $ terraform apply --auto-approve
 ```
 **Note:** As terraform can't read the db password from existing db, You MUST pass `db_password` variable value along with `db_name` -->
+
+### After terraform setup: run the terraform output script
+
+Run this [script](./get-tf-outputs.sh) to get the required values for the deployment.
+
+```bash
+export COVERITY_CLUSTER_NAME=???
+export COVERITY_CLUSTER_REGION=???
+export COVERITY_PGHOST=???.rds.amazonaws.com
+export COVERITY_PGPORT=5432
+export COVERITY_PGUSER=postgres
+export COVERITY_PGPASSWORD=???
+export COVERITY_S3_BUCKET_NAME=???
+export COVERITY_S3_BUCKET_REGION=???
+```
