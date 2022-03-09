@@ -3,6 +3,15 @@
 set -xv
 set -euo pipefail
 
+cat << EOF
+This script is unsupported; it is provided only as a reference.
+There are many ways to deploy Coverity; this merely demonstrates one possible method.
+This helm deploy script is specific to infra deployed through this project.  It will not work with different infra.
+If deploying to different infra, you will have to modify this script.
+Users of this script must be familiar with the details of their infra in order to modify this script correctly.
+Any modifications to this script will also not be supported.
+EOF
+
 
 GCP_PROJECT_ID=${GCP_PROJECT_ID:-}
 COVERITY_CLUSTER_NAME=${COVERITY_CLUSTER_NAME:-}
