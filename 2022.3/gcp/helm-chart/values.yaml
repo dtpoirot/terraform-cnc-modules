@@ -22,6 +22,12 @@ cim:
     enabled: true
   ingress:
     enabled: true
+    hosts:
+      - coverity.example
+    tls:
+      - secretName: "coverity-ingress"
+        hosts:
+          - coverity.example
   postgres:
     database: "cim"
 

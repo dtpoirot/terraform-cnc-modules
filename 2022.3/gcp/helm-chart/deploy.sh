@@ -24,7 +24,6 @@ EOF
 # COVERITY_GCS_SERVICE_ACCOUNT_FILE
 #
 # COVERITY_NS
-# COVERITY_HOST
 #
 # COVERITY_CHART
 # COVERITY_CHART_VERSION
@@ -35,9 +34,7 @@ EOF
 COVERITY_GCS_SA_SECRET_NAME="cnc-gcs-credentials"
 COVERITY_GCS_SA_SECRET_KEY="key.json"
 COVERITY_INGRESS_SECRET_NAME="coverity-ingress"
-
 COVERITY_LICENSE_SECRET_NAME="coverity-license"
-COVERITY_HOST="coverity.example"
 
 
 ## Make sure your kubectl is pointing at the gcp cluster
@@ -70,8 +67,8 @@ echo -e "\n===> Successfully created prerequisites for Coverity Helm Chart.\n"
 echo -e "\n===> Deploying Coverity Helm Chart...\n"
 
 
-helm upgrade "${COVERITY_NS}" --install \
-  "${COVERITY_CHART}" \
+helm upgrade "${COVERITY_NS}" "${COVERITY_CHART}" \
+  --install \
   --version "${COVERITY_CHART_VERSION}" \
   --debug \
   --wait \
@@ -84,9 +81,7 @@ helm upgrade "${COVERITY_NS}" --install \
   --set cnc-storage-service.gcs.bucket="${COVERITY_GCS_BUCKET_NAME}" \
   --set cnc-storage-service.gcs.secret.name="${COVERITY_GCS_SA_SECRET_NAME}" \
   --set cnc-storage-service.gcs.secret.key="${COVERITY_GCS_SA_SECRET_KEY}" \
-  --set cim.ingress.hosts={"${COVERITY_HOST}"} \
-  --set cim.ingress.tls[0].secretName="${COVERITY_INGRESS_SECRET_NAME}" \
-  --set cim.ingress.tls[0].hosts={"${COVERITY_HOST}"} \
+  -f values.yaml \
   "$@"
 
 echo -e "\n===> Successfully deployed Coverity Helm Chart.\n"
