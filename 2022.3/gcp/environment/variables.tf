@@ -21,7 +21,7 @@ variable "tags" {
 
 variable "scanfarm_enabled" {
   type        = bool
-  description = "Whether scanfarm resources have to be created or not; Defaults to false (BETA)"
+  description = "Whether scanfarm resources have to be created or not; Defaults to false"
   default     = false
 }
 
