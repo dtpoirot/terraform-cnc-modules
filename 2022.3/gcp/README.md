@@ -61,7 +61,7 @@ $ terraform apply --auto-approve -var-file="terraform.tfvars.example"
 ```bash
 $ cd terraform-cnc-modules/gcp/environment
 
-# modify/add input values as per terraform output of your step-1(global-resource module) and save it
+# modify/add input values using output from the global resources module
 $ vi terraform.tfvars.example
 
 $ terraform init
