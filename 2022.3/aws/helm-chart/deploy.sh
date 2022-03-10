@@ -22,6 +22,7 @@ EOF
 # COVERITY_S3_SECRET_KEY
 # COVERITY_HOST
 # COVERITY_CHART
+# COVERITY_LICENSE_PATH
 
 echo -e "\n===> Deploying prerequisites for COVERITY-UMBRELLA Helm Chart...\n"
 COVERITY_S3_BUCKET_REGION=${COVERITY_CLUSTER_REGION}
@@ -46,7 +47,7 @@ kubectl create secret tls "$COVERITY_INGRESS_SECRET_NAME" \
 
 
 kubectl create secret generic "${COVERITY_LICENSE_SECRET_NAME}" \
-  --from-file=license.dat --namespace "${COVERITY_NS}" \
+  --from-file=license.dat="${COVERITY_LICENSE_PATH}" --namespace "${COVERITY_NS}" \
   --dry-run -o yaml | kubectl apply -f -
 
 kubectl create secret generic "${COVERITY_S3_SECRET_NAME}" \
