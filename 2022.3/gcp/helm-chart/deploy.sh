@@ -63,9 +63,7 @@ kubectl create secret generic "${COVERITY_GCS_SA_SECRET_NAME}" \
 
 echo -e "\n===> Successfully created prerequisites for Coverity Helm Chart.\n"
 
-
 echo -e "\n===> Deploying Coverity Helm Chart...\n"
-
 
 helm upgrade "${COVERITY_NS}" "${COVERITY_CHART}" \
   --install \

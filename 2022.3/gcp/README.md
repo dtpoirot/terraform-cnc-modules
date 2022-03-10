@@ -1,4 +1,4 @@
-# GCP Provider
+# Coverity on GCP: reference implementation
 
 This Terraform code creates GCP resources using two separate modules:
 
