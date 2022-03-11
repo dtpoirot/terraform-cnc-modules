@@ -11,16 +11,9 @@ Any modifications to this script will also not be supported.
 
 ## Steps
 
-Copy in a license:
-
+Set environment variables and run deploy script:
 ```bash
-cp path/to/license.dat .
-```
-
-Set environment variables:
-```bash
-# these values all come from your terraform output script
-#   check the output to get the correct values
+# these values come from your terraform output script
 export COVERITY_CLUSTER_NAME=unique-prefix-cluster
 export COVERITY_CLUSTER_REGION=???
 export COVERITY_PGHOST=???
@@ -34,11 +27,19 @@ export COVERITY_S3_BUCKET_REGION=???
 export COVERITY_NS=unique-prefix
 export COVERITY_S3_ACCESS_KEY=<set_access_key_passed_in_terraform_input>
 export COVERITY_S3_SECRET_KEY=<set_secret_key_passed_in_terraform_input>
-```
+export COVERITY_CHART_VERSION=??? 
+export COVERITY_CHART=???
+export COVERITY_LICENSE_PATH=path/to/license.dat
 
-Run deploy script:
-```bash
-./deploy.sh
+
+kubectl create ns $COVERITY_NS || true
+
+
+./deploy.sh \
+  --set imageRegistry=??? \
+  --set publicImageRegistry=??? \
+  --set imagePullSecret=??? \
+  --set imageVersion=2022.3.0
 ```
 
 **Note:** See the Coverity documentation for Helm parameters.
@@ -52,7 +53,7 @@ Get the host name and address from your ingress object:
 ```bash
 $ kubectl get ingress -n unique-prefix 
 NAME      CLASS    HOSTS                              ADDRESS                                                                    PORTS     AGE
-unique-prefix   <none>   ???   ???.elb.amazonaws.com   80, 443   13m
+???   <none>   ???   ???.elb.amazonaws.com   80, 443   13m
 ```
 
 ### Ping the ADDRESS to get IP address
