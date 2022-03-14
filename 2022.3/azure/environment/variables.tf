@@ -33,18 +33,6 @@ variable "postgresql_version" {
   default     = "13"
 }
 
-variable "db_firewall_start_ip_address" {
-  type        = string
-  description = "start ip address for the postgres firewall rule"
-  default     = "0.0.0.0"
-}
-
-variable "db_firewall_end_ip_address" {
-  type        = string
-  description = "end ip address for the postgres firewall rule"
-  default     = "0.0.0.0"
-}
-
 variable "db_name" {
   type        = string
   description = "Name of the postgres instance; if empty, then CloudSQL instance will be created"
@@ -52,9 +40,19 @@ variable "db_name" {
 }
 
 variable "vnet_subnetid" {
-  type        = list(string)
+  type        = string
   description = "subnet id to attach with the storage account"
-  default     = []
+  default     = ""
+}
+
+variable "vnet_id" {
+   type = string
+   default = ""
+}
+
+variable "delegated_subnet_id" {
+  type=  string
+  default = ""
 }
 
 variable "storage_firewall_ip_rules" {

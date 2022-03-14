@@ -8,8 +8,16 @@ output "vnet_name" {
   value = resource.azurerm_virtual_network.vnet.name
 }
 
+output "vnet_id" {
+  value = resource.azurerm_virtual_network.vnet.id
+}
+
 output "subnetid" {
   value = resource.azurerm_subnet.subnet.id
+}
+
+output "delegated_subnet_id" {
+  value = resource.azurerm_subnet.delegated_subnet.id
 }
 
 output "publicip" {

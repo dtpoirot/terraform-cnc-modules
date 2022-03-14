@@ -26,6 +26,12 @@ variable "address_prefixes" {
   description = "address prefixes for the subnet"
 }
 
+variable "delegated_subnet_address_prefix" {
+  type = list(string)
+  default = ["10.1.1.0/24"]
+  description = "address prefixes for deleged subnet"
+}
+
 #############################  CLUSTER #################
 
 variable "kubernetes_version" {

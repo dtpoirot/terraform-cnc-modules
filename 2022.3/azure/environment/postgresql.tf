@@ -4,6 +4,19 @@ resource "random_string" "password" {
   special = false
 }
 
+resource "azurerm_private_dns_zone" "private_dns" {
+  name                = "${local.prefix}.postgres.database.azure.com"
+  resource_group_name = var.rg_name
+}
+
+resource "azurerm_private_dns_zone_virtual_network_link" "private_vlink" {
+  name                  = "privateVnetZone"
+  private_dns_zone_name = azurerm_private_dns_zone.private_dns.name
+  virtual_network_id    = var.vnet_id
+  resource_group_name   = var.rg_name
+}
+
+
 resource "azurerm_postgresql_flexible_server" "master" {
   name                   = "${local.prefix}postgres"
   resource_group_name    = var.rg_name
@@ -15,6 +28,9 @@ resource "azurerm_postgresql_flexible_server" "master" {
   sku_name               = var.sku_name
   tags                   = var.tags
   zone                   =  "1"
+  delegated_subnet_id    = var.delegated_subnet_id
+  private_dns_zone_id    = azurerm_private_dns_zone.private_dns.id
+  depends_on = [azurerm_private_dns_zone_virtual_network_link.private_vlink]
 }
 
 resource "azurerm_postgresql_flexible_server_configuration" "default" {
@@ -27,11 +43,4 @@ resource "azurerm_postgresql_flexible_server_configuration" "extensions" {
   name      = "azure.extensions"
   server_id = azurerm_postgresql_flexible_server.master.id
   value     = "UUID-OSSP"
-}
-
-resource "azurerm_postgresql_flexible_server_firewall_rule" "default" {
-  name             = "${local.prefix}-postgres-fw-rule"
-  server_id        = azurerm_postgresql_flexible_server.master.id
-  start_ip_address = var.db_firewall_start_ip_address
-  end_ip_address   = var.db_firewall_end_ip_address
 }
