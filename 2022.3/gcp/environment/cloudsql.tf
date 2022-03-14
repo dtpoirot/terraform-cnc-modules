@@ -56,6 +56,7 @@ resource "google_sql_database_instance" "master" {
       zone = data.google_compute_zones.available.0.names[0]
     }
     tier              = var.db_tier
+    disk_size         = var.db_size_in_gb
     availability_type = var.db_availability
     maintenance_window {
       day  = var.maintenance_window_day
