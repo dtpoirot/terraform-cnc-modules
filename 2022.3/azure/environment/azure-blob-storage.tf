@@ -13,7 +13,7 @@ resource "azurerm_storage_account_network_rules" "default" {
   storage_account_id         = azurerm_storage_account.storage_account[0].id
   default_action             = "Allow"
   ip_rules                   = var.storage_firewall_ip_rules
-  virtual_network_subnet_ids = var.vnet_subnetid
+  virtual_network_subnet_ids = [var.vnet_subnetid]
   bypass                     = ["AzureServices"]
 }
 
