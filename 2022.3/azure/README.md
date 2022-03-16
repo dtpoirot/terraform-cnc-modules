@@ -46,8 +46,7 @@ Name | Description | Type | Default
 `vnet_address_space`|Virtual Network address space to be used |list|`[]`
 `subnet_name`|A name of subnets inside virtual network| object |`{}`
 `subnet_address_prefix`|A list of subnets address prefixes inside virtual network| list |`{}`
-`gateway_subnet_address_prefix`|The address prefix to use for the gateway subnet|list|`null`
-`firewall_subnet_address_prefix`|The address prefix to use for the Firewall subnet|list|`[]`
+`delegated_subnet_address_prefix` | A list of subnet address prefixes that are inside virtual network for delegated subnet | list(string) | `["10.1.1.0/24"]`
 `service_endpoints`|service endpoints for the virtual subnet|object|`{}`
 `cluster_endpoint_public_access_cidrs`|"List of CIDR blocks which can access the Azure AKS public API server endpoint|list(string)|`[]`
 `scanfarm_enabled` | "to enabled the scanfarm components | bool | `false`
@@ -77,8 +76,10 @@ Name | Description
 ---- | -----------
 `resource_group_name` | The name of the resource group in which resources are created
 `rg_location`| The location of the resource group in which resources are created
-`vnet_name` | The name of the virtual network.
+`vnet_name` | The name of the virtual network
+`vnet_id` | The ID of the created virtual network
 `subnet_id` | subnet id of the virtual network
+`delegated_subnet_id` | The delegated subnet_id , which is used to create private network link for postgresql server 
 `publicip` | the nat ip 
 `cluster_name` | name of the aks cluster created .
 
@@ -95,13 +96,15 @@ Name | Description | Type | Default
 `zone` | the zone in which postgres server has to be deployed | string |`"1"`
 `postgresql_version` | version of the postgresql database server | string | `"13"`
 `vnet_subnetid` | vnet_subnetid to attached with storage account , you will get it from global output | list("string") | `[]`
+`vnet_id` | the ID of the virtual network that needs to be attached to the postgresql db , you will get it from the global output | string | `""`
+`delegated_subnet_id` |  The subnet_id for delegated subnet that can be attached to the postgresql server, you will get it from global output | string | `""`
 `storage_firewall_ip_rules` | the whitelisted ip's for storage account access | list(string) | `[]`
 `az_cluster_name` | name of the cluster created from the global output | string | `""`
 `deploy_ingress_controller `            | Flag to enable/disable the nginx-ingress-controller deployment in the aks cluster                    | `bool`         | `true`
 | `ingress_namespace`                     | Namespace in which ingress controller should be deployed. If empty, then ingress-controller will be created | `string`       | `""`
 `ingress_controller_helm_chart_version `| Version of the nginx-ingress-controller helm chart                                                   | `string`       | `3.35.0`
 `ingress_white_list_ip_ranges`          | List of source ip ranges for load balancer whitelisting; we recommend you to pass the list of your organization source IPs. Note: You must add NAT IP of your existing Vnet or 
-| `ingress_settings`                      | Additional settings which will be passed to the Helm chart values, see https://artifacthub.io/packages/helm/ingress-nginx/ingress-nginx | `map("string")` | `{}
+| `ingress_settings`                      | Additional settings which will be passed to the Helm chart values, see https://artifacthub.io/packages/helm/ingress-nginx/ingress-nginx | `map("string")` | `{}`
 
 ## environment Outputs
 
