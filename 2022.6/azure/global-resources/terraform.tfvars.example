@@ -1,0 +1,7 @@
+prefix = "cnclatest"
+rg_location = "westeurope"     # location of the resource group to be created default is West europe 
+rg_name = "tflatest"     # name of the azure resource group
+cluster_endpoint_public_access_cidrs = [
+   "0.0.0.0/0",
+  ]                                       # Add your organisation IP's .
+  scanfarm_enabled=true
