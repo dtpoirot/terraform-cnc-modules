@@ -1,0 +1,95 @@
+publicImageRegistry: ""
+imageRegistry: ""
+imageVersion: "main.latest"
+imagePullPolicy: "Always"
+
+cnc-common-infra:
+  version: ""
+
+cim:
+  postgres:
+    database: "cim"
+  cimweb:
+    version: ""
+    updateLicenseJob:
+      enabled: true
+      force: true
+  cimtools:
+    version: ""
+  cimdatabase:
+    version: ""
+  cimdownloads:
+    version: ""
+  initializeJob:
+    enabled: true
+  ingress:
+    enabled: true
+    annotations: {}
+    hosts:
+      - coverity.example
+    tls:
+      - secretName: "coverity-tls"
+        hosts:
+          - coverity.example
+
+cnc-processor-loader:
+  version: ""
+  environment:
+    CUSTOMNODEPOOL_CPU: 1000
+    CUSTOMNODEPOOL_MEM: 500
+
+cnc-scan-service:
+  version: ""
+  initializeJob:
+    enabled: true
+  migrateJob:
+    version: ""
+  postgres:
+    database: "scan"
+  environment:
+    APP_NAME: "cnc-scan-service"
+    STORAGE_PORT: 9999
+    LOGLEVEL: "debug"
+    DISPATCHER_INTERVAL: 5
+    DISPATCHER_MAXFAILUREDURATION: 300
+    DISPATCHER_COVERITY_IMAGEPULLPOLICY: "IfNotPresent"
+    DISPATCHER_COVERITY_DRIVERFAILUREBUFFERTIME: 5
+    DISPATCHER_DEFAULTCONCURRENTSCANLIMIT: 5
+    DISPATCHER_SWEEPER_MAXFAILUREDURATION: 1800
+    DISPATCHER_SWEEPER_RETRYLIMIT: 3
+    DISPATCHER_SWEEPER_INTERVAL: 180
+
+cnc-storage-service:
+  version: ""
+  initializeJob:
+    enabled: true
+  migrateJob:
+    version: ""
+  environment:
+    APP_NAME: "cnc-storage-service"
+    API_PUBLIC_S3_TTL: "10800"
+    LOGLEVEL: "debug"
+  postgres:
+    database: "storage"
+  storageType: s3
+  s3:
+    region: "us-east-1"
+  endpoint:
+    internal:
+      url: "http://coverity-minio:9000"
+    external:
+      url: "https://coverity.example"
+      proxyPath: "upload"
+
+trust-stores:
+  enabled: false
+
+postgres:
+  host: "cim-pg-postgresql"
+  password: "postgres"
+  port: 5432
+  user: "postgres"
+  sslmode: "disable"
+
+scanfarm:
+  enabled: true
