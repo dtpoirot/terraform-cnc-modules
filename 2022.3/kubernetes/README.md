@@ -38,6 +38,16 @@ This script:
  - labels a node to enable Coverity analysis on that node
  - deploys the Coverity helm chart
 
+## How this works
+
+The Pure Kubernetes distribution depends solely on a Kubernetes cluster, and runs all dependencies inside that cluster.  This includes:
+
+ - postgres – from a helm chart or operator
+ - minio – for scanservices' idir storage
+ - nginx ingress controller – for accessing CNC from outside the cluster
+
+In order to run analysis pods, it labels a node so that CNC scan services will be able to use that node.
+
 ## Setup procedure
 
 1. Get Coverity images into a registry that your kubernetes cluster can pull from
