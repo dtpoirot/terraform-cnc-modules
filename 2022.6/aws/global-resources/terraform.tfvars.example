@@ -1,6 +1,12 @@
-prefix="dmstest"
-aws_region="ap-south-1"
-aws_access_key= ""
-aws_secret_key=""
-cluster_endpoint_public_access_cidrs =[]
-scanfarm_enabled=true
+prefix                               = "dmstest"
+aws_region                           = "ap-south-1"
+aws_access_key                       = ""
+aws_secret_key                       = ""
+cluster_endpoint_public_access_cidrs = []
+scanfarm_enabled                     = true
+tags = {
+  product    = "cnc"
+  automation = "dns"
+  managedby  = "terraform"
+  owner      = "changeme"
+}

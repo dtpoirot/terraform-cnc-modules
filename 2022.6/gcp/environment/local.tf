@@ -34,4 +34,11 @@ locals {
     autovacuum_vacuum_cost_limit   = 2000
   }
   database_flags = merge(local.default_database_flags, var.database_flags)
+
+  ## Redis values
+  default_redis_configs = {
+    maxmemory-gb     = "1"
+    maxmemory-policy = "noeviction"
+  }
+  redis_configs = merge(local.default_redis_configs, var.redis_configs)
 }

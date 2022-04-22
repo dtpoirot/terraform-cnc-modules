@@ -51,11 +51,16 @@ variable "create_bucket" {
   default     = true
 }
 
-# variable "expire_after" {
-#   type        = string
-#   description = "No.of days for expiration of S3 objects"
-#   default     = "30"
-# }
+variable "coverity_cache_age" {
+  type        = number
+  description = "No.of days for expiration of S3 objects in coverity-cache-bucket. Should be atleast 3 days"
+  default     = 15
+  validation {
+    condition     = var.coverity_cache_age >= 3
+    error_message = "The expiration of S3 objects in coverity-cache-bucket should be atleast 3 days."
+  }
+}
+
 ## RDS configuration
 variable "create_db_instance" {
   type        = bool
@@ -165,4 +170,35 @@ variable "ingress_controller_helm_chart_version" {
   type        = string
   description = "Version of the nginx-ingress-controller helm chart"
   default     = "3.35.0"
+}
+
+## Elastic cache redis configuration
+variable "redis_cluster_size" {
+  type        = number
+  description = "Number of nodes in cluster"
+  default     = 1
+}
+
+variable "redis_engine_version" {
+  type        = string
+  description = "Redis engine version"
+  default     = "5.0.6"
+}
+
+variable "redis_family" {
+  type        = string
+  description = "Redis family"
+  default     = "redis5.0"
+}
+
+variable "redis_instance_type" {
+  type        = string
+  description = "Elastic cache instance type. See https://aws.amazon.com/elasticache/pricing/#On-Demand_Nodes for other instance types"
+  default     = "cache.t3.small"
+}
+
+variable "redis_configs" {
+  type        = map(any)
+  description = "The Redis configuration parameters."
+  default     = {}
 }

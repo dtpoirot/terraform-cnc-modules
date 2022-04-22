@@ -3,6 +3,10 @@ output "s3_bucket_name" {
   value = local.is_bucket_exist ? data.aws_s3_bucket.default.0.id : module.s3_bucket.s3_bucket_id
 }
 
+output "coverity_cache_bucket_name" {
+  value = var.scanfarm_enabled ? module.coverity-cache-bucket.s3_bucket_id : ""
+}
+
 output "s3_bucket_region" {
   value = local.is_bucket_exist ? data.aws_s3_bucket.default.0.region : module.s3_bucket.s3_bucket_region
 }
@@ -45,4 +49,18 @@ output "cluster_name" {
 
 output "cluster_region" {
   value = var.aws_region
+}
+
+## Redis outputs
+output "redis_host" {
+  value = var.scanfarm_enabled ? module.elasticache-redis.endpoint : ""
+}
+
+output "redis_port" {
+  value = var.scanfarm_enabled ? module.elasticache-redis.port : ""
+}
+
+output "redis_password" {
+  value     = var.scanfarm_enabled ? random_string.redis-password.0.result : ""
+  sensitive = true
 }

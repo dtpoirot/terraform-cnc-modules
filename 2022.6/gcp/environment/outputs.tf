@@ -19,6 +19,10 @@ output "gcs_bucket_name" {
   value = var.scanfarm_enabled ? google_storage_bucket.uploads-bucket[0].name : ""
 }
 
+output "coverity_cache_bucket_name" {
+  value = var.scanfarm_enabled ? google_storage_bucket.coverity-cache-bucket[0].name : ""
+}
+
 output "gcs_bucket_region" {
   value = var.scanfarm_enabled ? var.bucket_region : ""
 }
@@ -44,4 +48,18 @@ output "db_master_password" {
 
 output "db_instance_name" {
   value = !local.is_cloudsql_instance_exist ? google_sql_database_instance.master.0.name : ""
+}
+
+## Redis outputs
+output "redis_host" {
+  value = var.scanfarm_enabled ? google_redis_instance.coverity-cache[0].host : ""
+}
+
+output "redis_port" {
+  value = var.scanfarm_enabled ? google_redis_instance.coverity-cache[0].port : ""
+}
+
+output "redis_server_ca_cert" {
+  value     = var.scanfarm_enabled ? google_redis_instance.coverity-cache[0].server_ca_certs[0].cert : ""
+  sensitive = true
 }

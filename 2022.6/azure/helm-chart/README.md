@@ -17,20 +17,35 @@ Set environment variables and run deploy script:
 export COVERITY_CLUSTER_NAME=unique-prefix-cluster
 export COVERITY_CLUSTER_REGION=???
 export COVERITY_PGHOST=???
-export COVERITY_PGPORT=5432
 export COVERITY_PGUSER=postgres
 export COVERITY_PGPASSWORD=???
-export COVERITY_S3_BUCKET_NAME=???
-export COVERITY_S3_BUCKET_REGION=???
+export COVERITY_AZ_BUCKET_NAME=???
+export COVERITY_AZ_STORAGE_ACCOUNT_NAME=???
+export COVERITY_AZ_STORAGE_ACCOUNT_KEY=???
 export COVERITY_CACHE_BUCKET_NAME=???
 export COVERITY_REDIS_HOST=???
 export COVERITY_REDIS_PORT=???
 export COVERITY_REDIS_PASSWORD=???
+export COVERITY_AZURE_ENDPOINT=???
+
+## Get the additional env values
+az account set --subscription="<set_subscription_id_passed_in_terraform_input>"
+az ad sp create-for-rbac --role="Contributor" --scopes="/subscriptions/<set_subscription_id_passed_in_terraform_input>"
+{
+  "appId": "????",
+  "displayName": "azure-cli-2022-04-20-17-42-16",
+  "name": "????",
+  "password": "???",
+  "tenant": "???"
+}
+az role assignment create --role "Storage Blob Data Owner" --assignee <set_appId_value_from_above_cmd_output>
 
 ## Set additional env values
 export COVERITY_NS=unique-prefix
-export COVERITY_S3_ACCESS_KEY=<set_access_key_passed_in_terraform_input>
-export COVERITY_S3_SECRET_KEY=<set_secret_key_passed_in_terraform_input>
+export COVERITY_AZURE_TENANT_ID=<set_tenant_value_from_above_cmd_output>
+export COVERITY_AZURE_CLIENT_ID=<set_appId_value_from_above_cmd_output>
+export COVERITY_AZURE_CLIENT_SECRET=<set_password_value_from_above_cmd_output>
+export COVERITY_AZURE_SUBSCRIPTION_ID=<set_subscription_id_passed_in_terraform_input>
 export COVERITY_CHART_VERSION=??? 
 export COVERITY_CHART=???
 export COVERITY_LICENSE_PATH=path/to/license.dat
@@ -55,21 +70,9 @@ kubectl create ns $COVERITY_NS || true
 Get the host name and address from your ingress object:
 
 ```bash
-$ kubectl get ingress -n unique-prefix 
-NAME      CLASS    HOSTS                              ADDRESS                                                                    PORTS     AGE
-???   <none>   ???   ???.elb.amazonaws.com   80, 443   13m
-```
-
-### Ping the ADDRESS to get IP address
-
-```
-ping ???.elb.amazonaws.com
-PING ???.elb.amazonaws.com (???): 56 data bytes
-Request timeout for icmp_seq 0
-Request timeout for icmp_seq 1
-^C
---- ???.elb.amazonaws.com ping statistics ---
-3 packets transmitted, 0 packets received, 100.0% packet loss
+$ kubectl get ingress -n $COVERITY_NS
+NAME      CLASS    HOSTS                              ADDRESS         PORTS     AGE
+???   <none>   ???   ???   80, 443   12m
 ```
 
 ### Update your /etc/hosts file

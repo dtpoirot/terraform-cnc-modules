@@ -21,6 +21,10 @@ EOF
 # COVERITY_PGUSER
 # COVERITY_S3_BUCKET_NAME
 # COVERITY_S3_BUCKET_REGION
+# COVERITY_CACHE_BUCKET_NAME
+# COVERITY_REDIS_HOST
+# COVERITY_REDIS_PORT
+# COVERITY_REDIS_PASSWORD
 #
 # COVERITY_S3_ACCESS_KEY
 # COVERITY_S3_SECRET_KEY
@@ -36,6 +40,7 @@ COVERITY_S3_BUCKET_REGION=${COVERITY_CLUSTER_REGION}
 COVERITY_S3_SECRET_NAME="coverity-s3-credentials"
 COVERITY_INGRESS_SECRET_NAME="coverity-ingress"
 COVERITY_LICENSE_SECRET_NAME="coverity-license"
+COVERITY_REDIS_PASSWORD_SECRET_NAME="coverity-redis-password"
 
 
 ## Fetch the cluster context and set default namespace
@@ -63,6 +68,9 @@ kubectl create secret generic "${COVERITY_S3_SECRET_NAME}" \
   --namespace "${COVERITY_NS}" \
   --dry-run -o yaml | kubectl apply -f -
 
+kubectl create secret generic "${COVERITY_REDIS_PASSWORD_SECRET_NAME}" \
+  --from-literal=password="${COVERITY_REDIS_PASSWORD}" --namespace "${COVERITY_NS}" \
+  --dry-run -o yaml | kubectl apply -f -
 
 echo -e "\n===> Successfully installed prerequisites for COVERITY-UMBRELLA Helm Chart.\n"
 
@@ -82,6 +90,12 @@ helm upgrade "${COVERITY_NS}" "${COVERITY_CHART}" \
   --set cnc-storage-service.s3.bucket="${COVERITY_S3_BUCKET_NAME}" \
   --set cnc-storage-service.s3.secret.name="${COVERITY_S3_SECRET_NAME}" \
   --set cnc-storage-service.s3.region="${COVERITY_S3_BUCKET_REGION}" \
+  --set cnc-cache-service.bucketName="${COVERITY_CACHE_BUCKET_NAME}" \
+  --set cnc-cache-service.aws.region="${COVERITY_S3_BUCKET_REGION}" \
+  --set cnc-cache-service.aws.secret="${COVERITY_S3_SECRET_NAME}" \
+  --set cnc-cache-service.redis.host="${COVERITY_REDIS_HOST}" \
+  --set cnc-cache-service.redis.port="${COVERITY_REDIS_PORT}" \
+  --set cnc-cache-service.redis.passwordSecret="${COVERITY_REDIS_PASSWORD_SECRET_NAME}" \
   -f values.yaml \
   "$@"
 

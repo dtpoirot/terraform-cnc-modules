@@ -27,8 +27,8 @@ variable "address_prefixes" {
 }
 
 variable "delegated_subnet_address_prefix" {
-  type = list(string)
-  default = ["10.1.1.0/24"]
+  type        = list(string)
+  default     = ["10.1.1.0/24"]
   description = "address prefixes for deleged subnet"
 }
 

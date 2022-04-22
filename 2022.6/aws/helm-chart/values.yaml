@@ -1,6 +1,6 @@
 publicImageRegistry: ""
 imageRegistry: ""
-imageVersion: "2022.3.0"
+imageVersion: "2022.6.0"
 imagePullPolicy: "Always"
 
 cnc-common-infra:
@@ -58,3 +58,11 @@ scanfarm:
 
 postgres:
   sslmode: "disable"
+
+cnc-cache-service:
+  enabled: true
+  storageProvider: "aws"
+  redis:
+    database: "1"
+    secure: true
+    verifyHostName: false

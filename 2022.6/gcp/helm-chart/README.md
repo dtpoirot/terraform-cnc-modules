@@ -25,6 +25,10 @@ export COVERITY_PGPASSWORD=???
 export COVERITY_PGUSER=???
 export GCP_PROJECT_ID=???
 export COVERITY_GCS_SERVICE_ACCOUNT_FILE=???
+export COVERITY_CACHE_BUCKET_NAME=???
+export COVERITY_REDIS_HOST=???
+export COVERITY_REDIS_PORT=???
+export COVERITY_REDIS_CA_CERT_FILE=???
 export COVERITY_NS=???
 export COVERITY_CHART_VERSION=???
 export COVERITY_CHART=???
@@ -38,7 +42,7 @@ kubectl create ns $COVERITY_NS || true
   --set imageRegistry=??? \
   --set publicImageRegistry=??? \
   --set imagePullSecret=??? \
-  --set imageVersion=2022.3.0
+  --set imageVersion=2022.6.0
 ```
 
 

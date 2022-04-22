@@ -1,14 +1,19 @@
-prefix="dmstest"
-aws_region="ap-south-1"
-aws_access_key= ""
-aws_secret_key=""
-scanfarm_enabled=true
-vpc_id = ""
+prefix           = "dmstest"
+aws_region       = "ap-south-1"
+aws_access_key   = ""
+aws_secret_key   = ""
+scanfarm_enabled = true
+vpc_id           = ""
 vpc_private_subnets = [
-  
-]
-vpc_nat_public_ips = [""]
-cluster_name = "dmstest-cluster"
-cluster_endpoint_public_access_cidrs = [""]
 
+]
+vpc_nat_public_ips                   = [""]
+cluster_name                         = "dmstest-cluster"
+cluster_endpoint_public_access_cidrs = [""]
+tags = {
+  product    = "cnc"
+  automation = "dns"
+  managedby  = "terraform"
+  owner      = "changeme"
+}
 # The above values are sample for reference , please modify as per global outputs

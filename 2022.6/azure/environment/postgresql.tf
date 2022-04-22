@@ -27,10 +27,10 @@ resource "azurerm_postgresql_flexible_server" "master" {
   storage_mb             = var.db_storage
   sku_name               = var.sku_name
   tags                   = var.tags
-  zone                   =  "1"
+  zone                   = "1"
   delegated_subnet_id    = var.delegated_subnet_id
   private_dns_zone_id    = azurerm_private_dns_zone.private_dns.id
-  depends_on = [azurerm_private_dns_zone_virtual_network_link.private_vlink]
+  depends_on             = [azurerm_private_dns_zone_virtual_network_link.private_vlink]
 }
 
 resource "azurerm_postgresql_flexible_server_configuration" "default" {

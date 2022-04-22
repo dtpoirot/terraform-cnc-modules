@@ -1,9 +1,15 @@
-prefix = "cnclatest"
-vnet_subnetid =" "    #subnet id from global output
-rg_location = "westeurope"     # location of the resource group to be created default is West europe
-rg_name = "tflatest"     # name of the azure resource group
-storage_firewall_ip_rules=["0.0.0.0/0"]         # Add the IP's based on your requirement .
-scanfarm_enabled = true
-az_cluster_name= "cnclatest-cluster"
-vnet_id=""                                      # get vnet_id from the global output
-delegated_subnet_id=" "                         # get delegated_subnet_id from global output
+prefix                    = "cnclatest"
+vnet_subnetid             = " "           #subnet id from global output
+rg_location               = "westeurope"  # location of the resource group to be created default is West europe
+rg_name                   = "tflatest"    # name of the azure resource group
+storage_firewall_ip_rules = ["0.0.0.0/0"] # Add the IP's based on your requirement .
+scanfarm_enabled          = true
+az_cluster_name           = "cnclatest-cluster"
+vnet_id                   = ""  # get vnet_id from the global output
+delegated_subnet_id       = " " # get delegated_subnet_id from global output
+tags = {
+  product    = "cnc"
+  automation = "dns"
+  managedby  = "terraform"
+  owner      = "changeme"
+}

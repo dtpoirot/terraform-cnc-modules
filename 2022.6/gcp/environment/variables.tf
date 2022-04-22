@@ -53,11 +53,15 @@ variable "bucket_region" {
   default     = "US"
 }
 
-# variable "expire_after" {
-#   type        = string
-#   description = "No.of days for expiration of gcs objects"
-#   default     = "30"
-# }
+variable "coverity_cache_age" {
+  type        = number
+  description = "No.of days for expiration of gcs objects in coverity-cache-bucket. Should be atleast 3 days"
+  default     = 15
+  validation {
+    condition     = var.coverity_cache_age >= 3
+    error_message = "The expiration of gcs objects in coverity-cache-bucket should be atleast 3 days."
+  }
+}
 
 ## CloudSQL configuration
 variable "db_name" {
@@ -194,3 +198,28 @@ variable "app_namespace" {
 #   description = "Port number of CloudSQL instance"
 #   default     = 5432
 # }
+
+## Redis configuration
+variable "redis_version" {
+  type        = string
+  description = "Redis instance version"
+  default     = "REDIS_5_0"
+}
+
+variable "redis_tier" {
+  type        = string
+  description = "The service tier of the redis instance. Possible values are BASIC and STANDARD_HA"
+  default     = "STANDARD_HA"
+}
+
+variable "redis_memory_size_gb" {
+  type        = number
+  description = "Redis memory size in GiB"
+  default     = 2
+}
+
+variable "redis_configs" {
+  type        = map(any)
+  description = "The Redis configuration parameters. See [more details](https://cloud.google.com/memorystore/docs/redis/reference/rest/v1/projects.locations.instances#Instance.FIELDS.redis_configs)"
+  default     = {}
+}

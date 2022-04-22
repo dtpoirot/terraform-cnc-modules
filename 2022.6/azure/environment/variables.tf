@@ -46,12 +46,12 @@ variable "vnet_subnetid" {
 }
 
 variable "vnet_id" {
-   type = string
-   default = ""
+  type    = string
+  default = ""
 }
 
 variable "delegated_subnet_id" {
-  type=  string
+  type    = string
   default = ""
 }
 
@@ -126,4 +126,38 @@ variable "ingress_namespace" {
   type        = string
   description = "Namespace in which ingress controller should be deployed. If empty, then ingress-controller will be created"
   default     = ""
+}
+
+variable "coverity_cache_age" {
+  type        = number
+  description = "No.of days for expiration of Azure storage blobs in coverity-cache-bucket. Should be atleast 3 days"
+  default     = 15
+  validation {
+    condition     = var.coverity_cache_age >= 3
+    error_message = "The expiration of Azure storage blobs in coverity-cache-bucket should be atleast 3 days."
+  }
+}
+
+variable "redis_capacity" {
+  type        = number
+  description = "The size of the Redis cache to deploy. Valid values for a SKU family of C (Basic/Standard) are 0, 1, 2, 3, 4, 5, 6"
+  default     = 2
+}
+
+variable "redis_version" {
+  type        = string
+  description = "Redis version"
+  default     = "6"
+}
+
+variable "redis_family" {
+  type        = string
+  description = "The SKU family/pricing group to use. Valid values are C (for Basic/Standard SKU family) and P (for Premium)"
+  default     = "C"
+}
+
+variable "redis_sku_name" {
+  type        = string
+  description = "The SKU of Redis to use. Possible values are Basic, Standard and Premium"
+  default     = "Standard"
 }

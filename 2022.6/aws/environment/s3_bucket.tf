@@ -31,6 +31,33 @@ module "s3_bucket" {
   tags                    = var.tags
 }
 
+module "coverity-cache-bucket" {
+  source        = "terraform-aws-modules/s3-bucket/aws"
+  version       = "2.14.1"
+  create_bucket = var.scanfarm_enabled
+  bucket        = "${local.namespace}-coverity-cache-bucket"
+  force_destroy = true
+  lifecycle_rule = [
+    {
+      id      = "${local.namespace}-coverity-cache-bucket-expiration"
+      enabled = true
+      expiration = {
+        days = var.coverity_cache_age
+      }
+      tags = {
+        name         = "${local.namespace}-coverity-cache-bucket"
+        rule         = "force-delete"
+        expire_after = var.coverity_cache_age
+      }
+    }
+  ]
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+  tags                    = var.tags
+}
+
 # If bucket already exists
 data "aws_s3_bucket" "default" {
   count  = local.is_bucket_exist ? 1 : 0

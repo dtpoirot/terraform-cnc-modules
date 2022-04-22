@@ -17,4 +17,21 @@ resource "google_storage_bucket" "uploads-bucket" {
   labels = var.tags
 }
 
+resource "google_storage_bucket" "coverity-cache-bucket" {
+  count         = var.scanfarm_enabled ? 1 : 0
+  name          = "${local.namespace}-coverity-cache-bucket"
+  location      = var.bucket_region
+  force_destroy = true # Delete even if non-empty
 
+  lifecycle_rule {
+    action {
+      type = "Delete"
+    }
+
+    condition {
+      age        = var.coverity_cache_age
+      with_state = "ANY"
+    }
+  }
+  labels = var.tags
+}

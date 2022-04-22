@@ -10,3 +10,10 @@ master_authorized_networks_config = [
 
 ## Change the below flag to create scanfarm resources
 scanfarm_enabled = false
+
+tags = {
+  product    = "cnc"
+  automation = "dns"
+  managedby  = "terraform"
+  owner      = "changeme"
+}
