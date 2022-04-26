@@ -1,7 +1,7 @@
 # Coverity on Kubernetes
 
 Requirements:
- - a Kubernetes cluster -- 1.18 - 1.23
+ - a Kubernetes cluster -- 1.19 - 1.24
    - scripts are provided to create a single-node KinD cluster
    - at least one node with enough spare CPU and memory to run analysis
  - kubectl
@@ -37,6 +37,16 @@ This script:
  - creates secrets for your license and certficates
  - labels a node to enable Coverity analysis on that node
  - deploys the Coverity helm chart
+
+## How this works
+
+The Pure Kubernetes distribution depends solely on a Kubernetes cluster, and runs all dependencies inside that cluster.  This includes:
+
+ - postgres – from a helm chart or operator
+ - minio – for scanservices' idir storage
+ - nginx ingress controller – for accessing CNC from outside the cluster
+
+In order to run analysis pods, it labels a node so that CNC scan services will be able to use that node.
 
 ## Setup procedure
 
