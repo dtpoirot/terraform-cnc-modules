@@ -3,7 +3,7 @@
 This Terraform code creates GCP resources using two separate modules:
 
 - [global-resources](./global-resources): VPC network, subnetwork and GKE cluster
-- [environment](./environment): CloudSQL instance, GCS bucket (if `scanfarm_enabled` is `true`), nginx-ingress-controller
+- [environment](./environment): CloudSQL instance, Redis instance, GCS buckets (if `scanfarm_enabled` is `true`), nginx-ingress-controller
 
 
 ## Global resources

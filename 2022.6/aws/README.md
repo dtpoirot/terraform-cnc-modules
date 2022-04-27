@@ -2,7 +2,7 @@
 
 Terraform creates the below AWS cloud resources by using the individual modules.
 - [global-resources](./global-resources): This module will create VPC, SUBNETS, EKS Cluster and deploy cluster-autoscaller.
-- [environment](./environment): This module will create S3 bucket, RDS instance along with related security group rules and deploy nginx-ingress-controller in the existing cluster.
+- [environment](./environment): This module will create S3 buckets, RDS instance, Redis instance along with related security group rules and deploy nginx-ingress-controller in the existing cluster.
 
 ## Global resources
 ### Inputs
@@ -168,7 +168,7 @@ $ terraform apply --auto-approve -var-file="terraform.tfvars.example"
 
 ### After terraform setup: run the terraform output script
 
-Run this [script](./get-tf-outputs.sh) to get the required values for the deployment.
+Run this [script](./environment/get-tf-outputs.sh) to get the required values for the deployment.
 
 ```bash
 export COVERITY_CLUSTER_NAME=???
