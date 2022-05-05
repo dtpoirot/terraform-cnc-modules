@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 echo "export COVERITY_CLUSTER_NAME=$(terraform output -raw gcp_cluster_name)"
 echo "export COVERITY_CLUSTER_REGION=$(terraform output -raw gcp_cluster_region)"
 echo "export COVERITY_GCS_BUCKET_NAME=$(terraform output -raw gcs_bucket_name)"
@@ -9,7 +11,7 @@ echo "export COVERITY_PGUSER=$(terraform output -raw db_instance_username)"
 echo "export GCP_PROJECT_ID=$(terraform output -raw gcp_project_id)"
 
 TMP_FILE=$(mktemp)
-echo "$(terraform output -raw gcs_service_account)" > "${TMP_FILE}"
+echo "$(terraform output -raw gcs_service_account)" | jq > "${TMP_FILE}"
 echo "export COVERITY_GCS_SERVICE_ACCOUNT_FILE=${TMP_FILE}"
 
 echo "export COVERITY_CACHE_BUCKET_NAME=$(terraform output -raw coverity_cache_bucket_name)"

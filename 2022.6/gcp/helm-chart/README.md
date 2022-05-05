@@ -9,6 +9,14 @@ If deploying to different infra, you will have to modify this script.
 Users of this script must be familiar with the details of their infra in order to modify this script correctly.
 Any modifications to this script will also not be supported.
 
+## Prerequisites
+
+Install jq, or update if already installed:
+
+```bash
+$ brew install jq
+```
+
 ## Run the terraform output script
 
 Run this [script](../environment/get-tf-outputs.sh) to get the required values for the deployment.
